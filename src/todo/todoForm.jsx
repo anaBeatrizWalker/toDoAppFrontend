@@ -7,12 +7,16 @@ export default props => (
         
         <Grid cols='12 9 10'>
             <input id='description' className='form-control'
-                    placeholder='Adicione uma tarefa'></input>
+                    placeholder='Adicione uma tarefa'
+                    value={props.description}//atribuindo a descrição da tarefa como valor
+                    onChange={props.handleChange}//evento de mudança de estado
+                    ></input>
         </Grid>
 
         <Grid cols='12 3 2'>
             <IconButton style='primary' icon='plus'
-                onClick={props.handleAdd}></IconButton>
+                onClick={props.handleAdd}//evento de adicionar
+                ></IconButton>
         </Grid>
     </div>
 )
