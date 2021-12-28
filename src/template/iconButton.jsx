@@ -1,17 +1,12 @@
 import React from 'react'
+import If from './if'
 
-export default props => {
-    if(props.hide){ //se a propriedade hide for verdadeira
-        return null
-    
-    }else{
-        return (
-            <button className={'btn btn-'+ props.style}//concatenação de parte da classe css com uma propriedade recebida como parâmetro
-                onClick={props.onClick}>
-
-                    <i className={'fa fa-'+ props.icon}></i>
-            
-            </button>
-        )
-    }
-}
+export default props => (
+    //Se a propriedade não for hide
+    <If test={!props.hide}>
+        <button className={'btn btn-'+ props.style} 
+            onClick={props.onClick}>
+            <i className={'fa fa-'+ props.icon}></i>
+        </button>
+    </If>
+)
