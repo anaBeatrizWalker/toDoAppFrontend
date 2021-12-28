@@ -16,6 +16,16 @@ export default class Todo extends Component{
 
         this.handleAdd = this.handleAdd.bind(this)//this é justamente handleAdd
         this.handleChange = this.handleChange.bind(this)
+        this.handleRemove = this.handleRemove.bind(this)
+
+        this.refresh()
+    }
+
+    //Retorna a lista dedados atualizada
+    refresh(description = '') {
+        const search = description ? `&description__regex=/${description}/` : ''
+        axios.get(`${URL}?sort=-createdAt${search}`)//concatenando com  o filtro de ordenar pela data de criação (crescente)
+            .then(resp => this.setState({...this.state, description: '', list: resp.data}))//muda o estado para adicionar os dados na lista
     }
 
     //Evento de quando o usuário digitar no input
@@ -28,7 +38,13 @@ export default class Todo extends Component{
     handleAdd() {
         const description = this.state.description //valor mais novo
         axios.post(URL, { description })//adiciona na url base o objeto descrição
-            .then(resp => console.log('Funcionou'))
+            .then(resp => this.refresh())
+    }
+
+    //Exclusão de tarefa
+    handleRemove(todo) {
+        axios.delete(`${URL}/${todo._id}`)//passando o id na url
+            .then(resp => this.refresh())//atualiza e mostra a nova lista
     }
 
     render(){
@@ -42,7 +58,8 @@ export default class Todo extends Component{
 
                     handleChange={this.handleChange}/>
                 
-                <TodoList/>
+                <TodoList list={this.state.list}
+                    handleRemove={this.handleRemove}/>
             </div>
         )
     }
