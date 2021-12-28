@@ -1,8 +1,13 @@
 //Componente que centraliza a maior parte das regras relativas ao cadastro de tarefas
+
 import React, { Component } from 'react'
+import axios from 'axios'
+
 import PageHeader from '../template/pageHeader'
 import TodoForm from './todoForm'
 import TodoList from './todoList'
+
+const URL = 'http://localhost:3003/api/todos' //url base da api do backend
 
 export default class Todo extends Component{
     constructor(props) {
@@ -21,7 +26,9 @@ export default class Todo extends Component{
 
     //Evento de Adição de uma nova tarefa
     handleAdd() {
-        console.log(this.state.description)
+        const description = this.state.description //valor mais novo
+        axios.post(URL, { description })//adiciona na url base o objeto descrição
+            .then(resp => console.log('Funcionou'))
     }
 
     render(){
