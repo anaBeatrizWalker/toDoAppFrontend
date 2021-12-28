@@ -16,6 +16,8 @@ export default class Todo extends Component{
 
         this.handleAdd = this.handleAdd.bind(this)//this é justamente handleAdd
         this.handleChange = this.handleChange.bind(this)
+        this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
+        this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
 
         this.refresh()
@@ -41,10 +43,22 @@ export default class Todo extends Component{
             .then(resp => this.refresh())
     }
 
-    //Exclusão de tarefa
+    //Botão excluir tarefa
     handleRemove(todo) {
         axios.delete(`${URL}/${todo._id}`)//passando o id na url
             .then(resp => this.refresh())//atualiza e mostra a nova lista
+    }
+
+    //Botão feito
+    handleMarkAsDone(todo) {
+        axios.put(`${URL}/${todo._id}`, { ...todo, done: true })//pega todo o objeto e altera a variável booleana para true
+            .then(resp => this.refresh())
+    }
+
+    //Botão pendente
+    handleMarkAsPending(todo) {
+        axios.put(`${URL}/${todo._id}`, { ...todo, done: false })
+            .then(resp => this.refresh())
     }
 
     render(){
@@ -58,7 +72,10 @@ export default class Todo extends Component{
 
                     handleChange={this.handleChange}/>
                 
-                <TodoList list={this.state.list}
+                <TodoList 
+                    list={this.state.list}
+                    handleMarkAsDone={this.handleMarkAsDone}
+                    handleMarkAsPending={this.handleMarkAsPending}
                     handleRemove={this.handleRemove}/>
             </div>
         )
