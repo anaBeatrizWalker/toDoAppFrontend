@@ -22,6 +22,10 @@ export default props => (
             <IconButton style='info' icon='search'
                 onClick={props.handleSearch}//evento de pesquisar tarefa
             ></IconButton>
+
+            <IconButton style='default' icon='close'
+                onClick={props.handleClear}//evento de limpar o input
+            ></IconButton>
         </Grid>
     </div>
 )

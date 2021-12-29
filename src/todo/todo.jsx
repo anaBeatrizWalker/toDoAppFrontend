@@ -20,6 +20,7 @@ export default class Todo extends Component{
         this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
+        this.handleClear = this.handleClear.bind(this)
 
         this.refresh()
     }
@@ -66,23 +67,27 @@ export default class Todo extends Component{
             .then(resp => this.refresh(this.state.description))
     }
 
+    //Limpa o campo input e traz a versão mais nova da table
+    handleClear() {
+        this.refresh()
+    }
+
     render(){
         return(
             <div>
                 <PageHeader name='Tarefas' small='Cadastro'/>
                 <TodoForm 
                     description={this.state.description} //sempre que o estado atualizar, renderiza o valor novo no form
-
                     handleAdd={this.handleAdd}/*permite o click do botão chamar a função*/
-
-                    handleChange={this.handleChange}/>
+                    handleChange={this.handleChange}
+                    handleSearch={this.handleSearch}
+                    handleClear={this.handleClear}/>
                 
                 <TodoList 
                     list={this.state.list}
                     handleMarkAsDone={this.handleMarkAsDone}
                     handleMarkAsPending={this.handleMarkAsPending}
-                    handleRemove={this.handleRemove}
-                    handleSearch={this.handleSearch}/>
+                    handleRemove={this.handleRemove}/>
             </div>
         )
     }
