@@ -14,9 +14,14 @@ export default props => (
         </Grid>
 
         <Grid cols='12 3 2'>
+
             <IconButton style='primary' icon='plus'
-                onClick={props.handleAdd}//evento de adicionar
-                ></IconButton>
+                onClick={props.handleAdd}//evento de adicionar tarefa
+            ></IconButton>
+
+            <IconButton style='info' icon='search'
+                onClick={props.handleSearch}//evento de pesquisar tarefa
+            ></IconButton>
         </Grid>
     </div>
 )

@@ -19,15 +19,20 @@ export default class Todo extends Component{
         this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
         this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
 
         this.refresh()
     }
 
     //Retorna a lista dedados atualizada
-    refresh(description = '') {
-        const search = description ? `&description__regex=/${description}/` : ''
+    refresh(description = '') {//refresh recebe a descrição atual
+        const search = description ? `&description__regex=/${description}/` : '' //se contém a descrição, adiciona na URL
         axios.get(`${URL}?sort=-createdAt${search}`)//concatenando com  o filtro de ordenar pela data de criação (crescente)
-            .then(resp => this.setState({...this.state, description: '', list: resp.data}))//muda o estado para adicionar os dados na lista
+            .then(resp => this.setState({...this.state, description, list: resp.data}))//muda o estado para adicionar os dados na lista
+    }
+
+    handleSearch() {
+        this.refresh(this.state.description)
     }
 
     //Evento de quando o usuário digitar no input
@@ -46,19 +51,19 @@ export default class Todo extends Component{
     //Botão excluir tarefa
     handleRemove(todo) {
         axios.delete(`${URL}/${todo._id}`)//passando o id na url
-            .then(resp => this.refresh())//atualiza e mostra a nova lista
+            .then(resp => this.refresh(this.state.description))//atualiza e mostra a nova lista
     }
 
     //Botão feito
     handleMarkAsDone(todo) {
         axios.put(`${URL}/${todo._id}`, { ...todo, done: true })//pega todo o objeto e altera a variável booleana para true
-            .then(resp => this.refresh())
+            .then(resp => this.refresh(this.state.description))
     }
 
     //Botão pendente
     handleMarkAsPending(todo) {
         axios.put(`${URL}/${todo._id}`, { ...todo, done: false })
-            .then(resp => this.refresh())
+            .then(resp => this.refresh(this.state.description))
     }
 
     render(){
@@ -76,7 +81,8 @@ export default class Todo extends Component{
                     list={this.state.list}
                     handleMarkAsDone={this.handleMarkAsDone}
                     handleMarkAsPending={this.handleMarkAsPending}
-                    handleRemove={this.handleRemove}/>
+                    handleRemove={this.handleRemove}
+                    handleSearch={this.handleSearch}/>
             </div>
         )
     }
