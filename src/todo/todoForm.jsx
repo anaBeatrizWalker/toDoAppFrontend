@@ -36,7 +36,7 @@ class TodoForm extends Component{
                 <Grid cols='12 9 10'>
                     <input id='description' className='form-control'
                             placeholder='Adicione uma tarefa'
-                            value={this.props.description}//atribuindo a descrição da tarefa como valor
+                            value={this.props.description}
                             onKeyUp={this.keyHandler}
                             onChange={this.props.changeDescription}//action de mudança na descrição
                             ></input>
@@ -45,15 +45,15 @@ class TodoForm extends Component{
                 <Grid cols='12 3 2'>
         
                     <IconButton style='primary' icon='plus'
-                        onClick={()=> add(description)}//evento de adicionar tarefa
+                        onClick={()=> add(description)}
                     ></IconButton>
         
                     <IconButton style='info' icon='search'
-                        onClick={()=> search()}//evento de pesquisar tarefa
+                        onClick={()=> search()}
                     ></IconButton>
         
                     <IconButton style='default' icon='close'
-                        onClick={this.props.clear()}//evento de limpar o input
+                        onClick={this.props.clear()}
                     ></IconButton>
                 </Grid>
             </div>

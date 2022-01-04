@@ -7,7 +7,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, description: action.payload}//replica o estado e adc ao description o que vem no payload da ação
 
         case 'TODO_SEARCHED':
-            return {...state, list: action.payload.data}
+            return {...state, list: action.payload}
 
         case 'TODO_CLEAR':
             return {...state, description: ''} //limpa o input 

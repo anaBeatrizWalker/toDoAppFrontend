@@ -9,10 +9,15 @@ export const changeDescription = (event) => ({//método que cria a action
 })
 
 export const search = ()=>{
-    const request = axios.get(`${URL}?sort=-createdAt`)
-    return {
-        type: 'TODO_SEARCHED',
-        payload: request
+    return (dispatch, getState) => {
+        //vai na store, pega o valor da descrição...
+        const description = getState().todo.description
+        //analisa se precisa colocar description para ser consultado ou joga pra requisição sem ter a pesquisa
+        const search = description ? `&description__regex=/${description}/` : ''
+        //faz a pesquisa
+        const request = axios.get(`${URL}?sort=-createdAt${search}`)
+            //depois da pesquisa gera o dispatch, atualizando todos os reducers
+            .then(resp => dispatch({type: 'TODO_SEARCHED', payload: resp.data}))
     }
 }
 
@@ -47,5 +52,5 @@ export const remove = (todo) => {
 }
 
 export const clear = ()=> {
-    return { type: 'TODO_CLEAR'}
+    return [{ type: 'TODO_CLEAR'}, search()]
 }
