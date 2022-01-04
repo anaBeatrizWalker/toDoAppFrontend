@@ -18,8 +18,8 @@ export default search = ()=>{
 
 export const add = (description) =>{
     const request = axios.post(URL, { description })
-    return {
-        type: 'TODO_ADDED',
-        payload: request
-    }
+    return [
+        { type: 'TODO_ADDED', payload: request },
+        search()//ocorre delay na hora de listar as tarefas adicionadas
+    ]
 }
