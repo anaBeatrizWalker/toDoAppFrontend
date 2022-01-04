@@ -16,10 +16,12 @@ export default search = ()=>{
     }
 }
 
-export const add = (description) =>{
-    const request = axios.post(URL, { description })
-    return [
-        { type: 'TODO_ADDED', payload: request },
-        search()//ocorre delay na hora de listar as tarefas adicionadas
-    ]
+export const add = (description) => {
+    return dispatch => { //método que envia as action para os reducers
+        axios.post(URL, { description })
+            //dispara a action e preencher a resp com os dados
+            .then(resp => dispatch({ type: 'TODO_ADDED', payload: resp.data }))
+            //somente quando os dados estiverem prontos, chama o search
+            .then(resp => dispatch(search()))
+    }
 }
