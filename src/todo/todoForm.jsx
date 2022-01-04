@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux' //liga o bind ao dispatch
 
 import Grid from '../template/grid'
 import IconButton from '../template/iconButton'
-import { add, changeDescription, search, } from './todoActions'
+import { add, changeDescription, search, clear } from './todoActions'
 
 //Transformando em componente de classe
 class TodoForm extends Component{
@@ -17,14 +17,14 @@ class TodoForm extends Component{
     }
 
     keyHandler(e){
-        const { add, search, description } = this.props
+        const { add, clear, search, description } = this.props
 
         if (e.key === 'Enter') {
             //Se o shift foi pressaionado
             e.shiftKey ? search() : add(description)
 
         } else if (e.key === 'Escape') {
-            this.props.handleClear()
+            clear()
         }
     }
     render(){
@@ -53,7 +53,7 @@ class TodoForm extends Component{
                     ></IconButton>
         
                     <IconButton style='default' icon='close'
-                        onClick={this.props.handleClear}//evento de limpar o input
+                        onClick={this.props.clear()}//evento de limpar o input
                     ></IconButton>
                 </Grid>
             </div>
@@ -64,6 +64,6 @@ class TodoForm extends Component{
 const mapStateToProps = state => ({description: state.todo.description})//todo.description vem de reducers.js
 
 //Disparando as ações para todos os reducers
-const mapDispatchToProps = dispatch => bindActionCreators({ add, changeDescription, search }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ add, changeDescription, search, clear }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoForm)

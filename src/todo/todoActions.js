@@ -8,7 +8,7 @@ export const changeDescription = (event) => ({//método que cria a action
     payload: event.target.value //pega o valor do input
 })
 
-export default search = ()=>{
+export const search = ()=>{
     const request = axios.get(`${URL}?sort=-createdAt`)
     return {
         type: 'TODO_SEARCHED',
@@ -17,11 +17,9 @@ export default search = ()=>{
 }
 
 export const add = (description) => {
-    return dispatch => { //método que envia as action para os reducers
+    return dispatch => {
         axios.post(URL, { description })
-            //dispara a action e preencher a resp com os dados
-            .then(resp => dispatch({ type: 'TODO_ADDED', payload: resp.data }))
-            //somente quando os dados estiverem prontos, chama o search
+            .then(resp => dispatch(clear()))
             .then(resp => dispatch(search()))
     }
 }
@@ -46,4 +44,8 @@ export const remove = (todo) => {
         axios.delete(`${URL}/${todo._id}`)
             .then(resp => dispatch(search()))
     }
+}
+
+export const clear = ()=> {
+    return { type: 'TODO_CLEAR'}
 }
