@@ -8,9 +8,10 @@ export default class Grid extends Component {
     toCssClasses(numbers) {
         const cols = numbers ? numbers.split(' ') : [] //separa os números
         
-        let classes = ''//criando classes
+        let classes = '' //criando classes
 
-        if(cols[0]) classes += `col-xs-${cols[0]}` //se existe a coluna 0, concatena com string classe adicionando o número no padrão
+        //se existe a coluna 0, concatena com string classe adicionando o número no padrão
+        if(cols[0]) classes += `col-xs-${cols[0]}` 
         if(cols[1]) classes += ` col-sm-${cols[1]}`
         if(cols[2]) classes += ` col-md-${cols[2]}`
         if(cols[3]) classes += ` col-lg-${cols[3]}`
@@ -29,7 +30,7 @@ export default class Grid extends Component {
     */
 
     render() {
-        const gridClasses = this.toCssClasses(this.props.cols || 12)//se cols não foi setado, o valor é 12 e o componente ocupa a tela interia
+        const gridClasses = this.toCssClasses(this.props.cols || 12) //se cols não foi setado, o valor é 12 e o componente ocupa a tela interia
         return (
             <div className={gridClasses}>
                 {this.props.children}

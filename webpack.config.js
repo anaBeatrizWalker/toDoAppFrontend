@@ -13,21 +13,21 @@ module.exports = {//objeto que contém toda a configuração necessária para o 
         contentBase: './public', //pasta que contém o arquivo app.js e index.html
     },
     resolve: {
-        extensions: ['', '.js', '.jsx'],//extensão que o webpack precisará reconhecer
+        extensions: ['', '.js', '.jsx'], //extensão que o webpack precisará reconhecer
         alias: { //criando um apelido para a pasta node_modules
-            modules: __dirname + '/node_modules'//modules aponta para a pasta dirname node_modules
+            modules: __dirname + '/node_modules' //modules aponta para a pasta dirname node_modules
         }
     },
     plugins: [ 
-        new ExtractTextPlugin('app.css')//instância do arquivo que o plugin extract vai gerar
+        new ExtractTextPlugin('app.css') //instância do arquivo que o plugin extract vai gerar
     ],
     module: {
         loaders: [{
-            test: /.js[x]?$/,//faz o parser de .js e .jsx
+            test: /.js[x]?$/, //faz o parser de .js e .jsx
             loader: 'babel-loader',
-            exclude: /node_modules/,//ignora
+            exclude: /node_modules/, //ignora
             query: { 
-                presets: ['es2015', 'react'],//quais presets vai aplicar a partir do loader
+                presets: ['es2015', 'react'], //quais presets vai aplicar a partir do loader
                 plugins: ['transform-object-rest-spread']
             }
         }, {
@@ -36,7 +36,7 @@ module.exports = {//objeto que contém toda a configuração necessária para o 
             loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
         }, {
             //config para as fontes
-            test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,//tipos de extensões
+            test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/, //tipos de extensões
             loader: 'file'
         }]
     }

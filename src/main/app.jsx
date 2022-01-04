@@ -5,11 +5,12 @@ import '../template/custom.css'
 
 import React from 'react'
 import Menu from '../template/menu'
-import Routes from '../main/routes'
+import Routes from './routes'
 
-export default props => ( //função arrow com expressão
+//função arrow com expressão
+export default props => (
     <div className='container'>
-        <Menu/>
-        <Routes/>
+        <Menu />
+        <Routes />
     </div>
 )
