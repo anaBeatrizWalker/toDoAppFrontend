@@ -12,7 +12,7 @@ class TodoForm extends Component{
         super(props)
         this.keyHandler = this.keyHandler.bind(this)
     }
-    componentWillMount(){
+    componentWillMount(){//método de ciclo de vida, executado sempre que o comp será exibido
         this.props.search()
     }
 
