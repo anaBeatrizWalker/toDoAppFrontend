@@ -19,26 +19,14 @@ const TodoList = props => {
                 </td>
 
                 <td>
-                    <IconButton 
-                        style='success' 
-                        icon='check' 
-                        hide={todo.done}
-                        onClick={() => props.markAsDone(todo)}
-                    ></IconButton>
+                    <IconButton style='success' icon='check' hide={todo.done} 
+                    onClick={() => props.markAsDone(todo)}></IconButton>
 
-                    <IconButton 
-                        style='warning' 
-                        icon='undo' 
-                        hide={!todo.done}
-                        onClick={() => props.markAsPending(todo)}
-                    ></IconButton>
+                    <IconButton style='warning' icon='undo' hide={!todo.done} 
+                    onClick={() => props.markAsPending(todo)}></IconButton>
                     
-                    <IconButton 
-                        style='danger'
-                        icon='trash-o' 
-                        hide={!todo.done} 
-                        onClick={() => props.remove(todo)}
-                    ></IconButton>
+                    <IconButton style='danger'icon='trash-o' hide={!todo.done} 
+                    onClick={() => props.remove(todo)}></IconButton>
                 </td>
             </tr>
         ))

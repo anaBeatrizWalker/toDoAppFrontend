@@ -7,12 +7,14 @@ import IconButton from '../template/iconButton'
 import { add, changeDescription, search, clear } from './todoActions'
 
 //Transformando em componente de classe
-class TodoForm extends Component{
+class TodoForm extends Component {
     constructor(props){
         super(props)
         this.keyHandler = this.keyHandler.bind(this)
     }
-    componentWillMount(){//método de ciclo de vida, executado sempre que o comp será exibido
+
+    //método de ciclo de vida, executado sempre que o comp será exibido
+    componentWillMount() { 
         this.props.search()
     }
 
@@ -27,6 +29,7 @@ class TodoForm extends Component{
             clear()
         }
     }
+
     render(){
         const { add, search, description } = this.props
 
@@ -36,32 +39,28 @@ class TodoForm extends Component{
                 <Grid cols='12 9 10'>
                     <input id='description' className='form-control'
                             placeholder='Adicione uma tarefa'
-                            value={this.props.description}
+                            onChange={this.props.changeDescription}
                             onKeyUp={this.keyHandler}
-                            onChange={this.props.changeDescription}//action de mudança na descrição
-                            ></input>
+                            value={this.props.description}></input>
                 </Grid>
     
                 <Grid cols='12 3 2'>
         
                     <IconButton style='primary' icon='plus'
-                        onClick={()=> add(description)}
-                    ></IconButton>
+                        onClick={()=> add(description)}></IconButton>
         
                     <IconButton style='info' icon='search'
-                        onClick={()=> search()}
-                    ></IconButton>
+                        onClick={search}></IconButton>
         
                     <IconButton style='default' icon='close'
-                        onClick={this.props.clear()}
-                    ></IconButton>
+                        onClick={this.props.clear()}></IconButton>
                 </Grid>
             </div>
         )
     }
 }
 
-const mapStateToProps = state => ({description: state.todo.description})//todo.description vem de reducers.js
+const mapStateToProps = state => ({description: state.todo.description}) //todo.description vem de reducers.js
 
 //Disparando as ações para todos os reducers
 const mapDispatchToProps = dispatch => bindActionCreators({ add, changeDescription, search, clear }, dispatch)
